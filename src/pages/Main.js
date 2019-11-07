@@ -1,17 +1,33 @@
 //página que será usada, quando o usuário já estiver logado
 
-import React from 'react'; 
+import React, {useEffect} from 'react'; // useeffect será usado para fazer uma chamada a Api, quando o componente for exibido em tela
 import icon from '../images/icon.png';
 import like from '../images/like.png';
 import deslike from '../images/deslike.png';
 import './Main.css';
+import api from '../services/api';
 
 export default function Main({match}){ //para recuperar o id que é mostrado na rota podemos usar o match
     //dentro do match ficam todos os params da rota
+    
+    /*useEffect(() => {//useEffect usa dois parâmetros, 1º é uma função que deve ser executada e 2º quando a função deve ser executada, podem ser passadas variáveis dentro de um array, se essas variáveis forem alteradas essa função irá executar novamente e se o array estiver vazio a função será executada apenas uma vez -- match.params.id --> toda vez que o id que aparece na rota for alterado a função será chamada
+        async function loadUsers(){
+            const response = await api.get('/devs', {
+                headers: {
+                    user: match.params.id,
+                }
+            })
+        }
+
+        loadUsers();
+    }, [match.params.id]);
+
+    }*/
+
     return( 
         <div className="main-container">
         <img src={icon} alt="Tindev"></img>
-        <h1>É os cowboys do mandelão! Com o ID {match.params.id}</h1>
+        <h1>É os cowboys do mandelão!</h1>
         <ul>
             <li>
                 <img src="https://compote.slate.com/images/03c09fa7-bdaa-455d-874e-038d03ee395f.jpeg?width=780&height=520&rect=4769x3179&offset=0x391" alt="" height="307"></img>
@@ -34,7 +50,7 @@ export default function Main({match}){ //para recuperar o id que é mostrado na 
                 <img src="https://i.pinimg.com/originals/5d/c3/66/5dc36613b61388f2850447ca06b54595.jpg" alt="" height="307"></img>
                 <footer>
                     <strong>Chandler Bing</strong>
-                    <p>Faz análise e configuração de dados. Transponster. Gosta de ver o W.I.N.U.S feliz</p>
+                    <p>Faz análise e configuração de dados. Transponster. Gosta de ver o W.I.N.U.S feliz. Could him be anymore pretty?</p>
                 </footer>
 
                 <div className="buttons">
