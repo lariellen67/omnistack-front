@@ -22,7 +22,7 @@ export default function Main({match}){ //para recuperar o id que é mostrado na 
         loadUsers();
     }, [match.params.id]);
 
-    }*/
+    }*/ //NÃO QUER FUNCIONAR COM ESSA PARTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     return( 
         <div className="main-container">
