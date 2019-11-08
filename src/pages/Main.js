@@ -30,21 +30,20 @@ export default function Main({match}){ //para recuperar o id que é mostrado na 
         await api.post(`/devs/${id}/deslikes`, null, {
             headers: {user: match.params.id},
         })
-        setUsers(users.filter(user => user._id != id));
+        setUsers(users.filter(user => user._id !== id));
     }
 
     async function handleLike(id){
         await api.post(`/devs/${id}/likes`, null, {
             headers: {user: match.params.id},
         })
-        setUsers(users.filter(user => user._id != id));
+        setUsers(users.filter(user => user._id !== id));
     }
 
     return( 
         <div className="main-container">
             <Link to="/">
         <img src={icon} alt="Tindev"></img>
-        <h1>É os cowboys do mandelão!</h1>
             </Link>
         {users.length > 0 ? ( 
             <ul>
@@ -68,7 +67,7 @@ export default function Main({match}){ //para recuperar o id que é mostrado na 
             ))}
         </ul> 
         ):(
-            <div className="empty">É cowboy ela sentou e não gostou, por isso vai morrer sozinho</div>
+            <div className="empty">Acabou :(</div>
         )}
         </div>
     );
