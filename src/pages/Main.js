@@ -3,16 +3,20 @@
 import React, {useEffect, useState} from 'react'; // useeffect será usado para fazer uma chamada a Api, quando o componente for exibido em tela
 import io from 'socket.io-client';
 import {Link} from 'react-router-dom';
+import './Main.css';
+import api from '../services/api';
 import icon from '../images/icon.png';
 import like from '../images/like.png';
 import deslike from '../images/deslike.png';
-import './Main.css';
-import api from '../services/api';
+import matchwhite from '../images/matchwhite.png';
+
+
 
 export default function Main({match}){ //para recuperar o id que é mostrado na rota podemos usar o match
     //dentro do match ficam todos os params da rota
     
     const [users, setUsers] = useState([]); // é bom guardar no estado uma variável que será manipulada pelo componente
+    const [matchDev, setMatchDev] = useState(null);
 
     useEffect(() => {//useEffect usa dois parâmetros, 1º é uma função que deve ser executada e 2º quando a função deve ser executada, podem ser passadas variáveis dentro de um array, se essas variáveis forem alteradas essa função irá executar novamente e se o array estiver vazio a função será executada apenas uma vez -- match.params.id (o de baixo) --> toda vez que o id que aparece na rota for alterado a função será chamada
         async function loadUsers(){ //nova função que vai chamar a api
@@ -44,7 +48,7 @@ export default function Main({match}){ //para recuperar o id que é mostrado na 
 
 
         socket.on('match', dev =>{
-            console.log(dev);
+           setMatchDev(dev); //matchdev vai contar todas as informações do match
         })
     }, [match.params.id]); 
 
@@ -101,6 +105,17 @@ export default function Main({match}){ //para recuperar o id que é mostrado na 
         ):(
             <div className="empty">Acabou :(</div>
         )}
+
+        {matchDev && (
+            <div className="match-container">
+                <img src={matchwhite} alt="it's a match" height="85" width="305"></img>
+                <img className="avatar" src={matchDev.avatar} alt=""></img>
+                <strong>{matchDev.name}</strong>
+                <p>{matchDev.bio}</p>
+                <button type="button" onClick={() => setMatchDev(null)}>Fechar</button>
+            </div>
+        )}
+
         </div>
     );
 }
