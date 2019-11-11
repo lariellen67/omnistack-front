@@ -71,3 +71,25 @@
     font-weight: bold;
     margin-top: 300px;
 }
+
+.main-container .button-log{
+    margin-top: -30px;
+}
+
+.main-container .button-log button{
+    height: 35px;
+    width: 90px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2);
+    border:0;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    margin-left: 1060px;
+}
+
+.main-container .button-log button:hover{
+    transform: translateY(-3px);
+    transition: all .2s;
+    background-color: #df4723;
+    color:  #fff;
+}

@@ -1,6 +1,7 @@
 //página que será usada, quando o usuário já estiver logado
 
 import React, {useEffect, useState} from 'react'; // useeffect será usado para fazer uma chamada a Api, quando o componente for exibido em tela
+import io from 'socket.io-client';
 import {Link} from 'react-router-dom';
 import icon from '../images/icon.png';
 import like from '../images/like.png';
@@ -26,6 +27,29 @@ export default function Main({match}){ //para recuperar o id que é mostrado na 
     }, [match.params.id]);
 
 
+    useEffect(() =>{ //vai se conectar com o WebSocket
+        const socket = io('http://localhost:3333/', {
+            query: {user:  match.params.id} // query, parametro adicional, 
+        });
+
+        /*socket.on('rachel says', message =>{ //front ouvindo a mensagem do backend
+            console.log(message);
+        })
+
+        setTimeout(() =>{
+        socket.emit('joey says', { //emite uma mensagem para o backend
+            message: 'Hey, how you doin?' //a mensagem
+        })
+        }, 3000); //após 3seg a mensagem é enviada*/
+
+
+        socket.on('match', dev =>{
+            console.log(dev);
+        })
+    }, [match.params.id]); 
+
+    
+
     async function handleDeslike(id){
         await api.post(`/devs/${id}/deslikes`, null, {
             headers: {user: match.params.id},
@@ -41,10 +65,17 @@ export default function Main({match}){ //para recuperar o id que é mostrado na 
     }
 
     return( 
+        
         <div className="main-container">
-            <Link to="/">
+
+            <div className="button-log">
+                <Link to="/">
+                <button type="button">Logout</button>
+                </Link>
+            </div>
+
         <img src={icon} alt="Tindev"></img>
-            </Link>
+        
         {users.length > 0 ? ( 
             <ul>
             {users.map(user => (
@@ -63,6 +94,7 @@ export default function Main({match}){ //para recuperar o id que é mostrado na 
                         <img src={like} alt="Like"></img>
                     </button>
                 </div>
+
             </li>
             ))}
         </ul> 
